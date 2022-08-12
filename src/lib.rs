@@ -1,13 +1,10 @@
-use proc_macro::TokenStream;
-use quote::quote;
-
 #[proc_macro_derive(ErrorDisplay)]
-pub fn derive_error_display(input: TokenStream) -> TokenStream {
+pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let ast: syn::DeriveInput =
         syn::parse(input).expect("derive_error_display syn::parse(input) failed");
     let ident = &ast.ident;
     let gen = match ast.data {
-        syn::Data::Struct(_) => quote! {
+        syn::Data::Struct(_) => quote::quote! {
             if CONFIG.is_show_source_place_enabled && CONFIG.is_show_github_source_place_enabled {
                 write!(
                     f,
@@ -37,7 +34,7 @@ pub fn derive_error_display(input: TokenStream) -> TokenStream {
         syn::Data::Enum(data_enum) => {
             let generated = data_enum.variants.into_iter().map(|v| {
                 let variant = v.ident;
-                quote! {
+                quote::quote! {
                     #ident::#variant { source, where_was } => {
                         if CONFIG.is_show_source_place_enabled && CONFIG.is_show_github_source_place_enabled
                         {
@@ -68,7 +65,7 @@ pub fn derive_error_display(input: TokenStream) -> TokenStream {
                     }
                 }
             });
-            quote! {
+            quote::quote! {
                 match self {
                     #(#generated)*
                 }
@@ -76,7 +73,7 @@ pub fn derive_error_display(input: TokenStream) -> TokenStream {
         }
         _ => panic!("ErrorDisplay only works on enum and struct"),
     };
-    quote! {
+    quote::quote! {
         impl fmt::Display for #ident {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 #gen
