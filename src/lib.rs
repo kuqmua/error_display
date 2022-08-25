@@ -1,7 +1,6 @@
 #[proc_macro_derive(ErrorDisplay)]
 pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    let ast: syn::DeriveInput =
-        syn::parse(input).expect("derive_error_display syn::parse(input) failed");
+    let ast: syn::DeriveInput = syn::parse(input).expect("ErrorDisplay syn::parse(input) failed");
     let ident = &ast.ident;
     let gen = match ast.data {
         syn::Data::Struct(_) => quote::quote! {
