@@ -8,7 +8,7 @@ pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::Token
                 write!(
                     f,
                     "{}\n{}\n{}",
-                    self.where_was.source_place(),//_with_readable_time
+                    self.where_was.file_line_column(),//_with_readable_time
                     self.where_was.github_source_place(),//_with_readable_time
                     self.source
                 )
@@ -16,7 +16,7 @@ pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::Token
                 write!(
                     f,
                     "{}\n{}",
-                    self.where_was.source_place(),//_with_readable_time
+                    self.where_was.file_line_column(),//_with_readable_time
                     self.source
                 )
             } else if CONFIG.is_show_github_source_place_enabled {
@@ -40,7 +40,7 @@ pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::Token
                             write!(
                                 f,
                                 "{}\n{}\n{}",
-                                where_was.source_place(),//_with_readable_time
+                                where_was.file_line_column(),//_with_readable_time
                                 where_was.github_source_place(),//_with_readable_time
                                 source
                             )
@@ -48,7 +48,7 @@ pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::Token
                             write!(
                                 f,
                                 "{}\n{}",
-                                where_was.source_place(),//_with_readable_time
+                                where_was.file_line_column(),//_with_readable_time
                                 source
                             )
                         } else if CONFIG.is_show_github_source_place_enabled {
