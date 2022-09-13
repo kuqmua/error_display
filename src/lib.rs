@@ -9,7 +9,7 @@ pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::Token
                     f,
                     "{}\n{}\n{}",
                     self.where_was.file_line_column(),//_with_readable_time
-                    self.where_was.github_file_line_column(),//_with_readable_time
+                    self.where_was.github_file_line_column(&crate::helpers::git_info::GIT_INFO.data),//_with_readable_time
                     self.source
                 )
             } else if CONFIG.is_show_source_place_enabled {
@@ -23,7 +23,7 @@ pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::Token
                 write!(
                     f,
                     "{}\n{}",
-                    self.where_was.github_file_line_column(),//_with_readable_time
+                    self.where_was.github_file_line_column(&crate::helpers::git_info::GIT_INFO.data),//_with_readable_time
                     self.source
                 )
             } else {
@@ -41,7 +41,7 @@ pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::Token
                                 f,
                                 "{}\n{}\n{}",
                                 where_was.file_line_column(),//_with_readable_time
-                                where_was.github_file_line_column(),//_with_readable_time
+                                where_was.github_file_line_column(&crate::helpers::git_info::GIT_INFO.data),//_with_readable_time
                                 source
                             )
                         } else if CONFIG.is_show_source_place_enabled {
@@ -55,7 +55,7 @@ pub fn derive_error_display(input: proc_macro::TokenStream) -> proc_macro::Token
                             write!(
                                 f,
                                 "{}\n{}",
-                                where_was.github_file_line_column(),//_with_readable_time
+                                where_was.github_file_line_column(&crate::helpers::git_info::GIT_INFO.data),//_with_readable_time
                                 source
                             )
                         } else {
